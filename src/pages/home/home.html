@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="formulario">
+    <ion-list>
+      <ion-item>
+        <ion-label floating color="primary">Usuario</ion-label>
+        <ion-input formControlName="usuario" [(ngModel)] = "user"></ion-input>
+      </ion-item>
+      <ion-label *ngIf="formulario.get('usuario').hasError('required') && (formulario.get('usuario').touched || login)" color="danger">El campo de usuario no debe ser vacío</ion-label>
+      <ion-label *ngIf="formulario.get('usuario').hasError('minlength') && (formulario.get('usuario').touched || login) && !formulario.get('usuario').hasError('required')" color="danger">Al menos 6 caracteres</ion-label>
+      <ion-label *ngIf="formulario.get('usuario').hasError('pattern') && login" color="danger">Sólo minúsculas, sin dígitos ni caracteres <br>especiales</ion-label>
+      <ion-item>
+        <ion-label floating color="primary">Contraseña</ion-label>
+        <ion-input formControlName="contrasenia" [(ngModel)] = "password" type="password"></ion-input>
+      </ion-item>
+      <ion-label *ngIf="formulario.get('contrasenia').hasError('required') && (formulario.get('contrasenia').touched || login)" color="danger">El campo de contraseña no debe ser vacío</ion-label>
+      <ion-label *ngIf="formulario.get('contrasenia').hasError('minlength') && (formulario.get('contrasenia').touched || login) && !formulario.get('contrasenia').hasError('required')" color="danger">Al menos 8 caracteres</ion-label>
+      <ion-label *ngIf="formulario.get('contrasenia').hasError('pattern') && login" color="danger">Debe incluir al menos un dígito y un <br>símbolo |@#%&</ion-label>
+    </ion-list>
+    <button ion-button block (click)="iniciarSesion()" color="danger">Iniciar Sesión</button>
+    <ion-label *ngIf="formulario.hasError('not_matching') && login" color="danger">Usuario o contraseña incorrectos, verificar</ion-label>
+  </form>
+</ion-content>
